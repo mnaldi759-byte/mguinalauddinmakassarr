@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hisab Hilal</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <canvas id="stars"></canvas>
+
+    <div class="container">
+      <img src="./Logo-uin.webp" class="logo" />
+      <h1>
+        PREDIKSI VISIBILITAS HILAL ILMU FALAK UIN ALAUDDIN MAKASSAR MENGGUNAKAN
+        KRITERIA NEO-MABIMS
+      </h1>
+      <p class="subtitle">Perhitungan Astronomis Untuk Prediksi Hisab</p>
+      <p class="subtitle">M. Gusnaldi Albifari</p>
+
+      <!--  TAMBAHAN PILIH KOTA -->
+      <div class="card">
+        <h3>📍 PILIH LOKASI OTOMATIS</h3>
+
+        <select id="kota" onchange="pilihKota()">
+          <option value="">Pilih Kota Indonesia</option>
+          <option value="-6.2088,106.8456">Jakarta</option>
+          <option value="-7.7956,110.3695">Yogyakarta</option>
+          <option value="-2.5333,140.7167">Jayapura</option>
+          <option value="-7.2575,112.7521">Surabaya</option>
+          <option value="5.5483,95.3238">Aceh</option>
+          <option value="-5.1477,119.4327">Makassar</option>
+          <option value="-8.5833,116.1167">Mataram</option>
+          <option value="-10.1772,123.6070">Kupang</option>
+          <option value="-0.0263,109.3425">Pontianak</option>
+          <option value="-3.6950,128.1814">Ambon</option>
+          <option value="-6.9667,110.4167">Semarang</option>
+        </select>
+      </div>
+
+      <!-- INPUT -->
+      <div class="card">
+        <h2>INPUT DATA PENGAMATAN</h2>
+
+        <!-- INPUT GRID -->
+        <div class="input-grid">
+          <input id="lat" placeholder="Latitude" />
+          <input id="lng" placeholder="Longitude" />
+          <input id="tanggal" type="date" />
+          <input id="elevasi" placeholder="Elevasi (m)" />
+        </div>
+
+        <!-- BUTTON -->
+        <div class="btn-group">
+          <button onclick="ambilLokasi()">📍 Ambil Lokasi</button>
+          <button onclick="hitung()">✨ Hitung Hisab</button>
+        </div>
+      </div>
+
+      <!-- HASIL -->
+      <div id="hasilAtas" class="stats-grid"></div>
+      <div id="hasilBawah" class="grid4"></div>
+      <!-- GRAFIK -->
+      <div class="card">
+        <h3>PROYEKSI KETINGGIAN HILAL</h3>
+        <canvas id="chart"></canvas>
+      </div>
+
+      <!-- KRITERIA -->
+      <h3 class="judul">📋 KRITERIA VISIBILITAS</h3>
+      <div id="kriteria" class="grid4"></div>
+
+      <div class="card">
+        <h3>📊 ANALISIS VISIBILITAS</h3>
+        <p>Status MABIMS: <span id="mabims"></span></p>
+        <p>Indeks Visibilitas Hilal: <span id="skor"></span></p>
+        <p>Klasifikasi: <span id="klasifikasi"></span></p>
+        <p>Probabilitas Keterlihatan Hilal: <span id="prob"></span></p>
+        <p>Akurasi: <span id="akurasi"></span></p>
+        <p>Interpretasi: <span id="interpretasi"></span></p>
+        <p>Kesimpulan: <span id="kesimpulan"></span></p>
+      </div>
+
+      <!-- INFORMASI -->
+      <div class="card info">
+        <h3>💡 INFORMASI PERHITUNGAN</h3>
+        <ul>
+          <li>
+            Perhitungan menggunakan model VSOP87 untuk Matahari dan pendekatan
+            ELP untuk Bulan
+          </li>
+          <li>
+            Koreksi topocentric, paralaks, dan refraksi atmosfer diterapkan
+          </li>
+          <li>Perhitungan dilakukan pada waktu maghrib lokal (sunset)</li>
+          <li>Waktu terbaik pengamatan: 15-30 menit setelah maghrib</li>
+          <li>
+            ARCV (Arc of Vision) adalah kriteria Yallop/Odeh untuk visibilitas
+          </li>
+          <li>Mohon maaf jika ada kesalahan perhitungan</Li>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function arahKiblat(lat, lng) {
+        const kaabahLat = 21.4225;
+        const kaabahLng = 39.8262;
+
+        const dLng = ((kaabahLng - lng) * Math.PI) / 180;
+
+        lat = (lat * Math.PI) / 180;
+        const latK = (kaabahLat * Math.PI) / 180;
+
+        const y = Math.sin(dLng);
+        const x =
+          Math.cos(lat) * Math.tan(latK) - Math.sin(lat) * Math.cos(dLng);
+
+        let bearing = (Math.atan2(y, x) * 180) / Math.PI;
+        return (bearing + 360) % 360;
+      }
+    </script>
+
+    <script>
+      function createShootingStar() {
+        const star = document.createElement("div");
+        star.classList.add("shooting-star");
+
+        // posisi awal
+        star.style.top = "-50px";
+        star.style.left = Math.random() * window.innerWidth + "px";
+
+        // ambil lokasi user
+        const lat = parseFloat(document.getElementById("lat").value) || -5.1477;
+        const lng =
+          parseFloat(document.getElementById("lng").value) || 119.4327;
+
+        const kiblat = arahKiblat(lat, lng);
+
+        // konversi arah ke gerakan
+        const rad = (kiblat * Math.PI) / 180;
+
+        const x = Math.sin(rad) * 800;
+        const y = Math.cos(rad) * 800;
+
+        const angle = kiblat;
+
+        const speed = 2 + Math.random() * 2;
+        const tail = 80 + Math.random() * 120;
+
+        const colors = ["white", "#9fd3ff", "#ffd27f"];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        star.style.setProperty("--x", x + "px");
+        star.style.setProperty("--y", y + "px");
+        star.style.setProperty("--angle", angle + "deg");
+        star.style.setProperty("--speed", speed + "s");
+        star.style.setProperty("--tail", tail + "px");
+        star.style.setProperty("--color", color);
+
+        document.body.appendChild(star);
+
+        setTimeout(() => star.remove(), speed * 1000);
+      }
+
+      // hujan meteor
+      setInterval(() => {
+        for (let i = 0; i < 3; i++) {
+          createShootingStar();
+        }
+      }, 800);
+    </script>
+
+    <script>
+      function updateSky() {
+        const hour = new Date().getHours();
+
+        if (hour >= 6 && hour < 18) {
+          // SIANG
+          document.body.style.background =
+            "linear-gradient(to bottom, #87ceeb, #e0f7ff)";
+        } else {
+          // MALAM (galaksi aktif)
+          document.body.style.background =
+            "radial-gradient(circle at 20% 30%, rgba(88,0,255,0.3), transparent 40%),\
+         radial-gradient(circle at 80% 70%, rgba(0,150,255,0.25), transparent 40%),\
+         #070b1f";
+        }
+      }
+
+      // jalankan saat load
+      updateSky();
+
+      // update tiap menit
+      setInterval(updateSky, 60000);
+    </script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
