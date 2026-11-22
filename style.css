@@ -33,7 +33,7 @@ input {
   margin: 8px;
   border-radius: 8px;
   border: none;
-  background: #091ab1e1;
+  background: #111750e1;
   color: white;
 }
 
@@ -42,8 +42,8 @@ button {
   margin: 10px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(45deg, #05eedb, #b86cff);
-  color: white;
+  background: linear-gradient(45deg, #141414, #e20808);
+  color: rgb(248, 246, 246);
   cursor: pointer;
 }
 
