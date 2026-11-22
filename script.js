@@ -696,12 +696,15 @@ function hitung() {
         <div class="box">📅 Tanggal<br>${tgl}</div>
         <div class="box">🌇 Waktu Maghrib<br>${jam}:${menit.toString().padStart(2, "0")} ${labelZona}</div>
         <div class="box">🌙 Tinggi Hilal<br>${alt.toFixed(2)}°</div>
+    `;
+
+  hasilTengah.innerHTML = `
         <div class="box">🌗 Elongasi<br>${elong.toFixed(2)}°</div>
         <div class="box">🕒 Umur Bulan<br>${umur.toFixed(2)} jam</div>
+        <div class="box">✨ ARCV<br>${arcv.toFixed(3)}°</div>
     `;
 
   hasilBawah.innerHTML = `
-        <div class="box">✨ ARCV<br>${arcv.toFixed(3)}°</div>
         <div class="box">⏱ Waktu Terbaik<br>${bestTime.getHours().toString().padStart(2, "0")}:${bestTime.getMinutes().toString().padStart(2, "0")}</div>
         <div class="box">🧭 Azimuth Hilal<br>${azRel.toFixed(2)}°</div>
         <div class="box">🌑 Ijtima<br>${tIjtima.toLocaleString()}</div>

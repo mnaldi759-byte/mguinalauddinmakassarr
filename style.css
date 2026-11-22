@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  font-family: "Segoe UI";
-  background: #070b1f;
-  color: white;
+  font-family: "Cambria";
+  background: #081038;
+  color: rgb(245, 243, 243);
 }
 
 .container {
@@ -11,7 +11,7 @@ body {
 }
 
 h1 {
-  color: #8ea2ff;
+  color: #0e31f5;
   font-size: 40px;
 }
 
@@ -20,7 +20,7 @@ h1 {
 }
 
 .card {
-  background: #111936;
+  background: #f0f4f8 rgba(240, 244, 248, 0.8) #aab1b3;
   padding: 20px;
   border-radius: 14px;
   margin: 20px auto;
@@ -33,7 +33,7 @@ input {
   margin: 8px;
   border-radius: 8px;
   border: none;
-  background: #1c244f;
+  background: #091ab1e1;
   color: white;
 }
 
@@ -42,7 +42,7 @@ button {
   margin: 10px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(45deg, #6c7cff, #b86cff);
+  background: linear-gradient(45deg, #05eedb, #b86cff);
   color: white;
   cursor: pointer;
 }
@@ -67,9 +67,9 @@ button {
 }
 
 .box {
-  background: #141c3d;
-  padding: 15px;
-  border-radius: 10px;
+  background: #f0f4f0 rgba(240, 244, 248, 0.8) #aab1b3;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .kcard {
@@ -88,7 +88,7 @@ button {
 }
 
 .info {
-  background: #18264a;
+  background: #f0f4f8 rgba(240, 244, 248, 0.8) #aab1b3;
   border-left: 4px solid #3aa0ff;
   text-align: left;
 }
@@ -278,7 +278,7 @@ body {
 
 /* teks kecil */
 .box p {
-  font-size: 13px;
+  font-size: 16px;
   opacity: 0.7;
 }
 
@@ -333,7 +333,7 @@ body {
 
 /* judul kecil */
 .box p {
-  font-size: 13px;
+  font-size: 16px;
   opacity: 0.7;
   margin: 0;
 }
