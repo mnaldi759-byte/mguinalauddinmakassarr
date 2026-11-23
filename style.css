@@ -199,7 +199,7 @@ body::after {
 .shooting-star:nth-child(1) {
   top: 10%;
   left: 20%;
-  animation-delay: 0s;
+  animation-delay: 5s;
 }
 .shooting-star:nth-child(2) {
   top: 30%;
@@ -320,9 +320,9 @@ body {
   justify-content: center;
   align-items: center;
 
-  min-height: 90px;
+  min-height: 100px;
 
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
 /* hover */
